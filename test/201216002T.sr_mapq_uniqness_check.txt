@@ -1,0 +1,1 @@
+fusionGene	Gene	GeneType(Hgene or Tgene)	read_name	READ1/2	chr	sv_pos	sr_pos	pos_check	sr_mapq	sr_mapq_check	final_check

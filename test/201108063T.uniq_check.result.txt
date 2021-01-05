@@ -1,0 +1,3 @@
+fsGene	hgene_pass_n	hgene_nopass_n	tgene_pass_n	tgene_nopass_n	all_nopass_n	n	nopass_pct	uniqCheckResult
+ALK-EML4	33	49	0	0	49	82	0.60	NonUniq
+EML4-ALK	33	2	10	51	53	96	0.55	Uniq

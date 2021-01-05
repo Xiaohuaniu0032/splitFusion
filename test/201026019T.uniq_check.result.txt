@@ -1,0 +1,2 @@
+fsGene	hgene_pass_n	hgene_nopass_n	tgene_pass_n	tgene_nopass_n	all_nopass_n	n	nopass_pct	uniqCheckResult
+TMEM106B-ROS1	30	2	86	3	5	121	0.04	Uniq

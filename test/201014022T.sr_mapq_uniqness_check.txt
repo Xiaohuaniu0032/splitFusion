@@ -1,0 +1,1 @@
+fusionGene	breakpoint_info	Gene	Hgene_OR_Tgene	read_name	read_info	SA_info	SA_count	SR_mapq	SR_uniq_check	hgene_sr_pos	tgene_sr_pos	both_fs_pos_check	final_check

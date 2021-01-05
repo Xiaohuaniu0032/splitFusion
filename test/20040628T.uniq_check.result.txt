@@ -1,0 +1,9 @@
+fsGene	hgene_pass_n	hgene_nopass_n	tgene_pass_n	tgene_nopass_n	all_nopass_n	n	nopass_pct	uniqCheckResult
+SPEN-GUCY2F	0	189	0	3	192	192	1.00	NonUniq
+TAB2-PDGFRB	0	9	0	236	245	245	1.00	NonUniq
+GAREM1-FLT4	0	9	0	90	99	99	1.00	NonUniq
+TOP1P1-PLCG1-AS1	0	5	0	104	109	109	1.00	NonUniq
+FMO4-PLCG1-AS1	0	5	0	104	109	109	1.00	NonUniq
+FAM222B-GREM1	0	9	0	90	99	99	1.00	NonUniq
+MET-PRR16	0	321	0	9	330	330	1.00	NonUniq
+ADGRB1-ATAT1	0	142	0	10	152	152	1.00	NonUniq

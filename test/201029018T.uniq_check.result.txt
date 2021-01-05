@@ -1,0 +1,2 @@
+fsGene	hgene_pass_n	hgene_nopass_n	tgene_pass_n	tgene_nopass_n	all_nopass_n	n	nopass_pct	uniqCheckResult
+FGFR3-IRF2BP2	192	21	84	5	26	302	0.09	Uniq
