@@ -9,7 +9,6 @@ my $name = (split /\./, basename($svFile))[0];
 my $outfile = "$outdir/$name\.svscan.fusion.xls";
 
 open O, ">$outfile" or die;
-#print O "\#SampleID\tFusionGene\tHeadGene\tTailGene\tFusionReadsNumber\tTotalReadsNumber\tFusionRate(%)\tCOSMIC\tOncoKB\tIfReport\tFilterReason\tGene1\tChr1\tJunctionPosition1\tStrand1\tTranscript1\tRegion1\tGene2\tChr2\tJunctionPosition2\tStrand2\tTranscript2\tRegion2\tFusionSequence\tsvType\tsvSize\tinsSeq\tinsLen\tFusionOriPattern\n";
 
 # get align check result
 my %aln_uniq;
@@ -18,7 +17,7 @@ open IN, "$aln_uniq_result" or die;
 while (<IN>){
 	chomp;
 	my @arr = split /\t/;
-	$aln_uniq{$arr[0]} = $arr[-1]; # gene=>Uniq/NonUniq
+	$aln_uniq{$arr[1]} = $arr[-1]; # gene=>Uniq/NonUniq
 }
 close IN;
 
@@ -30,10 +29,10 @@ while (<IN>){
 	chomp;
 	my @arr = split /\t/;
 	if (exists $aln_uniq{$arr[1]}){
-		if ($arr[9] eq "YES"){
+		if ($arr[9] eq "YES" and ($arr[7] ne "Y" or $arr[8] ne "Y")){
+			# 只更新非常见融合（不再COSMIC & ONCOKB中的融合基因）
 			# check aln uniq
 			my $aln_res = $aln_uniq{$arr[1]};
-			#print "$arr[1]\t$aln_res\n";
 			if ($aln_res ne "Uniq"){
 				print "check $arr[1] fusion gene's align uniqness: Failed\n";
 				my $FilterReason = "split read align uniqness check Failed";
@@ -57,6 +56,4 @@ while (<IN>){
 	}
 }
 close IN;
-close O;
-			
-				
+close O;	
