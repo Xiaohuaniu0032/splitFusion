@@ -29,31 +29,39 @@ while (<IN>){
 	chomp;
 	my @arr = split /\t/;
 	if (exists $aln_uniq{$arr[1]}){
-		if ($arr[9] eq "YES" and ($arr[7] ne "Y" or $arr[8] ne "Y")){
-			# 只更新非常见融合（不再COSMIC & ONCOKB中的融合基因）
-			# check aln uniq
-			my $aln_res = $aln_uniq{$arr[1]};
-			if ($aln_res ne "Uniq"){
-				print "check $arr[1] fusion gene's align uniqness: Failed\n";
-				my $FilterReason = "split read align uniqness check Failed";
-				# update origin result
-				$arr[9] = "NO";
-				$arr[10] = $FilterReason;
+		if ($arr[7] eq 'Y' || $arr[8] eq 'Y'){
+			# 对于常见融合（COSMIC & COCOKB数据库中）不检查
+			print O "$_\n";
+		}else{
+			if ($arr[9] eq "YES"){
+				# 检查需要报出的不常见融合
+				my $aln_res = $aln_uniq{$arr[1]};
+				if ($aln_res ne "Uniq"){
+					print "check $arr[1] fusion gene's align uniqness: Failed\n";
+					my $FilterReason = "split read align uniqness check Failed";
+					$arr[9] = "NO";
+					$arr[10] = $FilterReason;
+
+					# output
+					my $flag = 0;
+					for my $val (@arr){
+						$flag += 1;
+						if ($flag < scalar(@arr)){
+							print O "$val\t";
+						}else{
+							print O "$val\n";
+						}
+					}
+				}else{
+					print "check $arr[1] fusion gene's align uniqness: Successed\n";
+				}	
 			}else{
-				print "check $arr[1] fusion gene's align uniqness: Successed\n";
+				print O "$_\n";
 			}
 		}
-	}
-	
-	my $flag = 0;
-	for my $val (@arr){
-		$flag += 1;
-		if ($flag < scalar(@arr)){
-			print O "$val\t";
-		}else{
-			print O "$val\n";
-		}
+	}else{
+		print O "$_\n";
 	}
 }
 close IN;
-close O;	
+close O;

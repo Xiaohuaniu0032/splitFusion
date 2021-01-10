@@ -321,7 +321,11 @@ def main():
     gene_strand['CCN4'] = '+'
 
 
+    
+
     for line in fsFH:
+        line_count = 0 # 如果fsFH中的基因没有找到一条split read，也要在结果文件中输出该基因的信息
+
         # each line is a fusion candidate
         arr = line.strip().split('\t')
         if arr[0] == 'SampleID':
@@ -525,6 +529,8 @@ def main():
                     
                     ofFH.write('\t'.join([arr[1],fs_info,hgene,'hgene',str(read.query_name),read_info,read_cigar_check,read.next_reference_name,chr_check,sa_tag,str(sr_mapq),sr_uniq_check,sa_ori_check,str(hgene_fs_info),str(tgene_fs_info),fs_pos_check,final_check])+'\n')
 
+                    line_count += 1
+
         # finished hgene screen
         
         ########################################### 处理tgene ###########################################
@@ -669,8 +675,14 @@ def main():
 
                     # output
                     ofFH.write('\t'.join([arr[1],fs_info,tgene,'tgene',str(read.query_name),read_info,read_cigar_check,read.next_reference_name,chr_check,SA,str(sr_mapq),sr_uniq_check,sa_ori_check,str(hgene_fs_info),str(tgene_fs_info),fs_pos_check,final_check])+'\n')
+                    line_count += 1
         samfile.close()
+
+        if line_count == 0:
+            ofFH.write('\t'.join([arr[1],fs_info,hgene,'hgene','query_name','read_info','read_cigar_check','mate_chr','chr_check','SA','sr_mapq','sr_uniq_check','sa_ori_check','hgene_fs_info','tgene_fs_info','fs_pos_check','NOPASS'])+'\n')
+
     fsFH.close()
+    ofFH.close()
 
 
 

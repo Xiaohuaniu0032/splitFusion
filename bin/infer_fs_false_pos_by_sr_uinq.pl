@@ -17,6 +17,8 @@ print O "sample\tfsGene\thgene_pass_n\thgene_nopass_n\ttgene_pass_n\ttgene_nopas
 my %fs_gene_uniq_check;
 my %hgene_info;
 
+
+# 存在特殊情况：该基因为非常见融合且为YES，但被过滤掉
 open IN, "$infile" or die;
 <IN>;
 while (<IN>){
@@ -44,6 +46,26 @@ while (<IN>){
 	$fs_gene_uniq_check{$arr[0]}{$arr[3]}{$arr[-1]} += 1; # gene->hgene/tgene->PASS/NOPASS += 1
 }
 close IN;
+
+
+# 所有待查基因
+my %all_check_genes;
+open IN, "$infile" or die;
+<IN>;
+while (<IN>){
+	chomp;
+	my @arr = split /\t/;
+	$all_check_genes{$arr[0]} = 1;
+}
+close IN;
+
+# 检查待查基因是否在fs_gene_uniq_check中，如果不存在，则该基因被过滤掉，但还需输出该基因信息
+foreach my $g (keys %all_check_genes){
+	if (!exists $fs_gene_uniq_check{$g}){
+		print O "$name\t$g\t0\t0\t0\t0\t0\t0\t0\tNonUniq\n";
+	}
+}
+
 
 foreach my $gene (keys %fs_gene_uniq_check){
 	my ($hgene_pass_n,$hgene_nopass_n);
