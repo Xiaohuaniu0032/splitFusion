@@ -53,6 +53,7 @@ while (<IN>){
 						}
 					}
 				}else{
+					print O "$_\n";
 					print "check $arr[1] fusion gene's align uniqness: Successed\n";
 				}	
 			}else{
